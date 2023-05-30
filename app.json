@@ -1,18 +1,18 @@
 {
   "expo": {
-    "name": "camera-app",
-    "slug": "camera-app",
+    "name": "camera",
+    "slug": "camera",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/mrbean.webp",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
-      "**/*"
+      "*/"
     ],
     "ios": {
       "supportsTablet": true

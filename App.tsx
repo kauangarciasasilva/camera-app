@@ -1,20 +1,53 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Camera, CameraType } from "expo-camera";
+import { useEffect, useState } from "react";
+import { Button, View ,StyleSheet} from "react-native";
+import  MediaLibrary from 'expo-media-library';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+   
+    const[image,setImage]= useState(null);
+    const[camera,setCamera]=useState(null);
+    const[Permission,setPermission]=useState(null);
+      useEffect(()=>{
+       (async()=>{
+            const cameraStatus = await Camera.requestCameraPermissionsAsync();
+            setPermission(cameraStatus.status ==='granted')
+        })();
+      },[]);  
+      async function takePicture(){
+        if(camera){
+          const photo = await camera.takePictureAsync()
+          console.log(photo.uril);
+           
+         await MediaLibrary.saveToLibraryAsync(photo.uril)
+        }
+          
+      
+      }
+        return (
+            <View style={styles.container}>
+              <Camera
+              ref={(l)=>setCamera(l)}
+              style={styles.styleCamera}
+              type={CameraType.back}
+              ratio={'1:1'}
+              />
+              <Button title="tirar foto" onPress={()=>{takePicture}}/>
+
+            </View>
+            
+      );
+      
+    
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+   flex:1
   },
+  styleCamera:{
+    aspecRatio:1,
+    flex:1,
+  },
+
 });
